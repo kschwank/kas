@@ -1,0 +1,10 @@
+build:
+  image: docker:19.03.12
+  stage: build
+  services:
+    - docker:19.03.12-dind
+  script:
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker build -t $CI_REGISTRY/Firmware/kas/kas:$CI_COMMIT_REF_SLUG .
+    - docker push $CI_REGISTRY/Firmware/kas/kas:$CI_COMMIT_REF_SLUG
+
